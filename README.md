@@ -1,281 +1,245 @@
-# 🎵 Mute Spotify Ads Automatically – Shell Script for Linux
-Tired of annoying Spotify ads interrupting your music? This lightweight shell script automatically **mutes Spotify during ads** and **restores the volume once the ad ends**.
-> ✅ Works with the **Spotify Desktop App only** (not the web player).
-> ⚡ Supports most Linux distributions.
+# 🎵 Spotify Ad Muter for Linux
 
----
+**Automatically mutes Spotify audio during advertisements while keeping them playing in the background.**
 
-## ⭐ Features
+This lightweight script monitors your Spotify client and intelligently mutes only the audio during ads, allowing them to complete normally while restoring sound when your music resumes.
 
-### 🎯 **Core Functionality**
-- 🔇 **Smart Ad Detection** – Automatically detects Spotify advertisements using multiple detection methods
-- 🔊 **Intelligent Muting** – Mutes only Spotify's audio (or system-wide as fallback) during ads
-- ⚡ **Fast Response** – Sub-second detection and muting for seamless experience
-- 🎵 **Volume Preservation** – Remembers and restores your exact volume after ads
-- 🔄 **Auto-Recovery** – Handles Spotify restarts, crashes, and edge cases gracefully
+## ✨ Features
 
-### 🎨 **Enhanced User Experience**  
-- 🌈 **Rich Visual Interface** – Colorful terminal output with Unicode symbols
-- 📊 **Real-time Statistics** – Track ads blocked, time saved, and session data
-- 🔔 **Desktop Notifications** – Optional system notifications when ads are blocked/unblocked
-- 📱 **Comprehensive CLI** – Multiple commands for status, testing, configuration, and more
-- 🎛️ **Volume Fade Effects** – Smooth fade in/out transitions (optional)
+- 🔇 **Audio-only muting** - Ads play silently while music audio is restored
+- 🎯 **Precise detection** - Uses multiple methods to identify advertisements
+- 🔄 **Auto-restart** - Continues monitoring even when Spotify is closed and reopened  
+- ⚡ **Lightweight** - Minimal system resource usage
+- 🔧 **PulseAudio support** - Mutes only Spotify, not your entire system
+- 🐧 **Systemd integration** - Runs automatically at startup
+- 📊 **Real-time status** - Visual feedback showing current track status
 
-### 🛠️ **Advanced Configuration**
-- ⚙️ **Persistent Settings** – Save preferences in configuration file
-- 📝 **Whitelist Support** – Prevent false positives by whitelisting artists/tracks
-- 🎚️ **Adjustable Sensitivity** – Fine-tune detection with strict mode and custom thresholds
-- 📋 **Multiple Audio Backends** – Supports PulseAudio (preferred) and ALSA (fallback)
-- ⏱️ **Customizable Intervals** – Adjust checking frequency for performance vs. responsiveness
+## 🚀 Quick Install
 
-### 🔧 **Developer & Power User Features**
-- 👥 **Daemon Mode** – Run as background service with systemd integration
-- 📈 **Performance Monitoring** – Built-in caching and optimization for low resource usage
-- 🧪 **Testing Tools** – Test ad detection on current track, volume controls, and more
-- 📜 **Comprehensive Logging** – Detailed logs with automatic rotation
-- 🔄 **Self-Management** – System-wide installation, auto-updates, and service management
+**One-line installation:**
 
-### 🎵 **Smart Detection Methods**
-- 🎯 **URL Pattern Matching** – Detects `spotify:ad:` and similar advertisement URLs
-- 📝 **Metadata Analysis** – Checks title, artist, and album fields for ad indicators  
-- ⏰ **Duration-Based Detection** – Identifies suspiciously short tracks typical of ads
-- 🔍 **Multi-Layer Validation** – Combines multiple methods for accurate detection
-- 🚫 **False Positive Prevention** – Whitelist system to avoid muting legitimate short songs
-
----
-
-## 📦 Dependencies
-Before running the script, make sure the following tools are installed:
-### 🐧 Ubuntu / Debian
 ```bash
-sudo apt update
-sudo apt install playerctl pulseaudio-utils alsa-utils
+curl -fsSL https://raw.githubusercontent.com/basbassi-houssam/no_spotify_ads_linux/main/install.sh | bash
 ```
-### 🐧 Fedora
+
+Or manually:
+
 ```bash
-sudo dnf install playerctl pulseaudio-utils alsa-utils
+wget https://raw.githubusercontent.com/basbassi-houssam/no_spotify_ads_linux/main/install.sh
+chmod +x install.sh
+./install.sh
 ```
-### 🐧 Arch Linux
+
+## 📋 Requirements
+
+### Required Dependencies
+
+- **playerctl** - For Spotify media control
+- **pulseaudio-utils** (pactl) - For precise audio control *(recommended)*
+- **alsa-utils** (amixer) - Fallback audio control
+- **curl** or **wget** - For downloading the script
+
+### Install Dependencies
+
+**Ubuntu/Debian:**
 ```bash
-sudo pacman -S playerctl pulseaudio alsa-utils
+sudo apt update && sudo apt install playerctl pulseaudio-utils curl
 ```
----
-## ✅ Verify Installation
-Run these commands to ensure everything is working:
+
+**Fedora:**
 ```bash
-# Check playerctl
+sudo dnf install playerctl pulseaudio-utils curl
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S playerctl pulseaudio curl
+```
+
+## 🔧 Installation Methods
+
+### Method 1: Automatic Installation (Recommended)
+
+1. **Download and run the installer:**
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/basbassi-houssam/no_spotify_ads_linux/main/install.sh | bash
+   ```
+
+2. **The installer will:**
+   - Check and install dependencies
+   - Download the latest script
+   - Install it system-wide in `/usr/local/bin`
+   - Create a systemd user service
+   - Enable automatic startup
+
+### Method 2: Manual Installation
+
+1. **Download the script:**
+   ```bash
+   wget https://raw.githubusercontent.com/basbassi-houssam/no_spotify_ads_linux/main/NoSpotifyAds
+   chmod +x NoSpotifyAds
+   ```
+
+2. **Install system-wide:**
+   ```bash
+   sudo cp NoSpotifyAds /usr/local/bin/no-spotify-ads
+   ```
+
+3. **Run manually or set up your own service**
+
+## 🎮 Usage
+
+### Automatic Operation (After Installation)
+
+The service starts automatically when you log in and begins monitoring when Spotify is running.
+
+### Manual Control Commands
+
+```bash
+# Service control (use systemctl --user, NOT sudo)
+systemctl --user start no-spotify-ads     # Start the service
+systemctl --user stop no-spotify-ads      # Stop the service  
+systemctl --user restart no-spotify-ads   # Restart the service
+systemctl --user status no-spotify-ads    # Check service status
+
+# View logs
+journalctl --user -u no-spotify-ads -f    # Follow live logs
+journalctl --user -u no-spotify-ads       # View all logs
+
+# Direct script usage
+no-spotify-ads                 # Run manually
+no-spotify-ads --help          # Show help
+no-spotify-ads --status        # Show current status
+no-spotify-ads --test          # Test ad detection
+no-spotify-ads --volume        # Show volume info
+```
+
+### Installer Options
+
+```bash
+./install.sh              # Install normally
+./install.sh --uninstall  # Remove installation
+./install.sh --fix        # Fix service configuration
+./install.sh --test       # Test service setup
+./install.sh --help       # Show installer help
+```
+
+## 🔍 How It Works
+
+1. **Monitoring**: The script continuously monitors Spotify using `playerctl`
+2. **Detection**: Uses multiple methods to identify ads:
+   - Track URL patterns (`spotify:ad:*`)
+   - Metadata analysis (title, artist, album)
+   - Duration analysis (ads are typically 15-30 seconds)
+   - Empty or suspicious metadata patterns
+3. **Audio Control**: 
+   - **PulseAudio**: Mutes only Spotify's audio stream (precise)
+   - **ALSA**: Falls back to system volume control if needed
+4. **Restoration**: Automatically restores audio when music resumes
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Service won't start:**
+```bash
+# Fix service configuration
+./install.sh --fix
+
+# Check logs for errors
+journalctl --user -u no-spotify-ads
+```
+
+**Permission denied:**
+- Never use `sudo` with `systemctl --user` commands
+- The script should NOT be run as root
+
+**Dependencies missing:**
+```bash
+# Check what's installed
 playerctl --version
-# Check PulseAudio
-pactl info
-# Check ALSA
-amixer --version
-# Check if Spotify is detected
-playerctl --list-all | grep spotify
+pactl --version
 ```
----
-## 🛠️ How It Works
-The script uses `playerctl` to detect when an ad is playing.
-When an ad is detected, it uses either `pactl` (PulseAudio) or `amixer` (ALSA) to mute your system volume. Once the ad ends, it unmutes automatically.
 
-**Enhanced Detection Process:**
-1. 📡 **Monitor Spotify** – Continuously checks track metadata and playback status
-2. 🔍 **Multi-Method Analysis** – Uses URL patterns, metadata analysis, and duration checking
-3. 🎯 **Smart Decision Making** – Applies whitelist rules and validation logic
-4. 🔇 **Precise Audio Control** – Mutes only Spotify's audio stream (when possible)
-5. 📊 **Statistics Tracking** – Records blocking data and performance metrics
+**Spotify not detected:**
+- Make sure Spotify is actually running
+- Try: `playerctl --player=spotify status`
 
----
-## 🚀 Getting Started
-First, clone the repository:
+### Logs and Debugging
+
+- **Live logs**: `journalctl --user -u no-spotify-ads -f`
+- **Script logs**: `/tmp/spotify-ad-muter.log`
+- **Test detection**: `no-spotify-ads --test`
+- **Service status**: `systemctl --user status no-spotify-ads`
+
+## ⚙️ Configuration
+
+### Adjusting Check Interval
+
+Edit the service or run manually with custom interval:
+
 ```bash
-git clone https://github.com/basbassi-houssam/no_spotify_ads_linux
-cd no_spotify_ads_linux
-```
-You'll find two main scripts:
-* `NoSpotifyAds` – the main script that mutes/unmutes Spotify
-* `SpotifyAdsBlocker` – optional script to monitor and launch `NoSpotifyAds` when Spotify starts
-
-### 🎮 **Quick Start Commands**
-```bash
-# Basic usage with enhanced monitoring
-./NoSpotifyAds
-
-# Fast mode with minimal output
-./NoSpotifyAds -i 0.5 --quiet
-
-# Show current status and track info
-./NoSpotifyAds status
-
-# View blocking statistics
-./NoSpotifyAds stats
-
-# Test ad detection on current track
-./NoSpotifyAds test
-
-# Configure settings interactively
-./NoSpotifyAds config save
-
-# Add artist to whitelist (prevent false positives)
-./NoSpotifyAds whitelist add "Artist Name"
-
-# Run as background daemon
-./NoSpotifyAds daemon start
+no-spotify-ads -i 2  # Check every 2 seconds instead of 1
 ```
 
----
-## 🧩 Usage Options – Choose What Fits You 🫵
-### 🔹 Option 1: Run Manually
-Simple and fast. Just run the script whenever you launch Spotify:
-```bash
-./NoSpotifyAds
-```
+### Audio Method Priority
 
-**Pro Tips:**
-- Use `./NoSpotifyAds -i 0.5` for faster ad detection
-- Add `--quiet` flag to reduce terminal output
-- Run `./NoSpotifyAds stats` to see how many ads you've blocked!
+1. **PulseAudio** (`pactl`) - Preferred, mutes only Spotify
+2. **ALSA** (`amixer`) - Fallback, mutes system volume
 
----
-### 🔹 Option 2: Auto-Start on Boot
-#### 📁 For Desktop Environments (KDE, GNOME, XFCE, etc.)
-1. Create a `.desktop` file in `~/.config/autostart/`:
-```bash
-nano ~/.config/autostart/no-spotify-ads.desktop
-```
-2. Paste this into the file (edit the `Exec` path):
-```ini
-[Desktop Entry]
-Type=Application
-Exec=/full/path/to/NoSpotifyAds --quiet
-Hidden=true
-NoDisplay=true
-X-GNOME-Autostart-enabled=true
-Name=NoSpotifyAds
-Comment=Automatically mutes Spotify ads
-```
-> 🔸 Remove or comment out `X-GNOME-Autostart-enabled=true` if you're not using GNOME.
+## 🆚 Comparison with Other Solutions
 
-#### 🪟 For Window Managers (BSPWM, Hyprland, etc.)
-Just add the script to your autostart section. For example:
-**BSPWM**
-```bash
-# ~/.config/bspwm/bspwmrc
-~/path/to/NoSpotifyAds --quiet &
-```
-**Hyprland**
-```bash
-# ~/.config/hypr/hyprland.conf
-exec-once = ~/path/to/NoSpotifyAds --quiet
-```
----
-### 🔹 Option 3: Auto-Start Only When Spotify is Running
-If you don't want the script running all the time, use the `SpotifyAdsBlocker` script.
-This script waits for Spotify to launch, then runs `NoSpotifyAds`, and stops once Spotify closes.
-#### Setup:
-1. Make sure both scripts are in the same folder.
-2. Autostart only `SpotifyAdsBlocker` instead of `NoSpotifyAds`.
-Example for autostart (`.desktop` file or WM config):
-```bash
-/full/path/to/SpotifyAdsBlocker &
-```
+| Method | This Script | Browser Extensions | System-wide Blockers |
+|--------|-------------|-------------------|---------------------|
+| Works with Desktop App | ✅ | ❌ | ✅ |
+| Preserves Ad Completion | ✅ | ❌ | ❌ |
+| Audio-only Muting | ✅ | N/A | ❌ |
+| No Breaking Changes | ✅ | ❌ | ❌ |
+| Lightweight | ✅ | ✅ | ❌ |
 
----
-### 🔹 Option 4: System Service (Advanced)
-Install as a system-wide service for automatic management:
-```bash
-# Install system-wide (requires sudo)
-sudo ./NoSpotifyAds install
+## 🔒 Privacy & Security
 
-# Enable user service
-systemctl --user enable nospotifyads
+- **No network connections** - Works entirely offline
+- **No data collection** - Only monitors local Spotify instance
+- **Open source** - Full code transparency
+- **Minimal permissions** - Only needs audio control access
 
-# Start service now
-systemctl --user start nospotifyads
+## 🤝 Contributing
 
-# Check service status
-systemctl --user status nospotifyads
-```
+Contributions are welcome! Please feel free to:
 
----
+- Report bugs via GitHub issues
+- Submit feature requests
+- Create pull requests
+- Improve documentation
 
-## 📊 **Command Reference**
+## 💝 Support This Project
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `start` | Start monitoring (default) | `./NoSpotifyAds start --quiet` |
-| `status` | Show current Spotify status | `./NoSpotifyAds status` |
-| `stats` | Display blocking statistics | `./NoSpotifyAds stats` |
-| `test` | Test ad detection | `./NoSpotifyAds test` |
-| `config` | Manage configuration | `./NoSpotifyAds config save` |
-| `whitelist` | Manage whitelist | `./NoSpotifyAds whitelist add "Artist"` |
-| `volume` | Show volume information | `./NoSpotifyAds volume` |
-| `daemon` | Background service control | `./NoSpotifyAds daemon start` |
-| `log` | View logs | `./NoSpotifyAds log tail` |
+If you find this project helpful, consider supporting its development:
 
-### 🎛️ **Options**
-- `-i, --interval SEC` – Set check interval (default: 0.75)
-- `-q, --quiet` – Quiet mode (minimal output)
-- `--no-notifications` – Disable desktop notifications  
-- `--strict` – Enable strict ad detection
-- `--fade` – Enable volume fade effects
-
----
-
-## 🧪 **Advanced Usage Examples**
-
-### 📈 **Performance Optimization**
-```bash
-# Ultra-fast detection (higher CPU usage)
-./NoSpotifyAds -i 0.25
-
-# Battery-friendly mode (slower detection)  
-./NoSpotifyAds -i 2.0 --quiet
-```
-
-### 🎯 **Troubleshooting False Positives**
-```bash
-# Test current track detection
-./NoSpotifyAds test
-
-# Add problematic artist to whitelist
-./NoSpotifyAds whitelist add "Short Song Artist"
-
-# Enable strict mode for better accuracy
-./NoSpotifyAds --strict
-```
-
-### 📊 **Monitoring and Statistics**
-```bash
-# View real-time statistics
-watch -n 1 "./NoSpotifyAds stats"
-
-# Check detailed logs
-./NoSpotifyAds log tail
-
-# View current Spotify volume and status
-./NoSpotifyAds volume
-```
-
----
-
-## ☕ Support This Project
-If this project helped you, consider supporting it to keep it alive and improved:
 * ❤️ [Donate on Ko-fi](https://ko-fi.com/basbassihoussam)
 * 💸 [Donate via PayPal](https://paypal.me/BasbassiHoussam)
 
-Your support means a lot 🙏
+Your support helps maintain and improve this project!
+
+## 📄 License
+
+This project is open source. Feel free to use, modify, and distribute according to the license terms.
+
+## 🔄 Updates
+
+The installer automatically downloads the latest version. To update manually:
+
+```bash
+./install.sh  # Reinstall with latest version
+```
+
+## ⭐ Star This Repo
+
+If this project helped you, please consider giving it a star on GitHub!
 
 ---
 
-## 🙋‍♂️ Questions? Suggestions?
-Feel free to open an [issue](https://github.com/basbassi-houssam/no_spotify_ads_linux/issues) or submit a pull request.
-
-### 📝 **Contributing**
-We welcome contributions! Whether it's:
-- 🐛 Bug fixes
-- ✨ New features  
-- 📚 Documentation improvements
-- 🧪 Testing on different distributions
-- 🎨 UI/UX enhancements
-
-Check out our issues page or submit a pull request!
+**Tested on:** Ubuntu, Fedora, Arch Linux, and derivatives  
+**Spotify Version:** Compatible with current Spotify desktop client  
+**Maintained by:** [BasbassiHoussam](https://github.com/basbassi-houssam)

@@ -1,16 +1,17 @@
-# 🎵 Mute Spotify Ads Automatically (Shell Script)
+# 🎵 Mute Spotify Ads Automatically – Shell Script for Linux
 
-Tired of annoying Spotify ads breaking your vibe? This shell script automatically **mutes Spotify during ads** and restores the volume when your music comes back.
+Tired of annoying Spotify ads interrupting your music? This lightweight shell script automatically **mutes Spotify during ads** and **restores the volume once the ad ends**.
 
-> ✅ Works with the **Spotify desktop app** only (not the web player).
+> ✅ Works with the **Spotify Desktop App only** (not the web player).
+> ⚡ Supports most Linux distributions.
 
 ---
 
 ## 📦 Dependencies
 
-Before running the script, make sure you have the following tools installed:
+Before running the script, make sure the following tools are installed:
 
-### 🐧 Ubuntu / Debian (Full Setup)
+### 🐧 Ubuntu / Debian
 
 ```bash
 sudo apt update
@@ -33,7 +34,7 @@ sudo pacman -S playerctl pulseaudio alsa-utils
 
 ## ✅ Verify Installation
 
-Run the following commands to confirm everything is installed properly:
+Run these commands to ensure everything is working:
 
 ```bash
 # Check playerctl
@@ -53,40 +54,105 @@ playerctl --list-all | grep spotify
 
 ## 🛠️ How It Works
 
-The script uses `playerctl` to detect when an ad is playing, then uses either `pactl` (PulseAudio) or `amixer` (ALSA) to mute the volume. When the ad is over, it unmutes automatically.
+The script uses `playerctl` to detect when an ad is playing.
+When an ad is detected, it uses either `pactl` (PulseAudio) or `amixer` (ALSA) to mute your system volume. Once the ad ends, it unmutes automatically.
 
-## There are three ways to use this script and it depends on you 🫵:
+---
 
-But before you must get the shell script:
+## 🚀 Getting Started
+
+First, clone the repository:
 
 ```bash
 git clone https://github.com/basbassi-houssam/no_spotify_ads_linux
+cd no_spotify_ads_linux
 ```
 
-### Option One:
+You’ll find two main scripts:
 
-Run the script maunually every time you launch Spotify. (Simple and easy)
+* `NoSpotifyAds` – the main script that mutes/unmutes Spotify
+* `SpotifyAdsBlocker` – optional script to monitor and launch `NoSpotifyAds` when Spotify starts
 
-### Option Two:
+---
 
-#### Set the script to auto start:
+## 🧩 Usage Options – Choose What Fits You 🫵
 
-To set the shell script to auto start, it depends on you DE or WM, However I'm going to show you the way that works for most DE and WM:
+### 🔹 Option 1: Run Manually
 
-First, You must create a desktop file in (~/.config/autostart) that auto starts when system boots up:
-
-Let make a file name it no-spotify-ads.desktop in ~/.config/autostart/:
+Simple and fast. Just run the script whenever you launch Spotify:
 
 ```bash
-[Desktop Entry]
-Type=Shell
-Exec=/path/to/your/NoSpotifyAds
-Hidden=true
-NoDisplay=true
-X-GNOME-Autostart-enabled=true # Comment/remove this if you're not using gnome
-Name=NoSpotifyAds
-Comment=Autostart MyApp at login
+./NoSpotifyAds
 ```
 
+---
+
+### 🔹 Option 2: Auto-Start on Boot
+
+#### 📁 For Desktop Environments (KDE, GNOME, XFCE, etc.)
+
+1. Create a `.desktop` file in `~/.config/autostart/`:
+
+```bash
+nano ~/.config/autostart/no-spotify-ads.desktop
+```
+
+2. Paste this into the file (edit the `Exec` path):
+
+```ini
+[Desktop Entry]
+Type=Application
+Exec=/full/path/to/NoSpotifyAds
+Hidden=true
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+Name=NoSpotifyAds
+Comment=Automatically mutes Spotify ads
+```
+
+> 🔸 Remove or comment out `X-GNOME-Autostart-enabled=true` if you're not using GNOME.
+
+#### 🪟 For Window Managers (BSPWM, Hyprland, etc.)
+
+Just add the script to your autostart section. For example:
+
+**BSPWM**
+
+```bash
+# ~/.config/bspwm/bspwmrc
+~/path/to/NoSpotifyAds &
+```
+
+**Hyprland**
+
+```bash
+# ~/.config/hypr/hyprland.conf
+exec-once = ~/path/to/NoSpotifyAds
+```
+
+---
+
+### 🔹 Option 3: Auto-Start Only When Spotify is Running
+
+If you don’t want the script running all the time, use the `SpotifyAdsBlocker` script.
+
+This script waits for Spotify to launch, then runs `NoSpotifyAds`, and stops once Spotify closes.
+
+#### Setup:
+
+1. Make sure both scripts are in the same folder.
+2. Autostart only `SpotifyAdsBlocker` instead of `NoSpotifyAds`.
+
+Example for autostart (`.desktop` file or WM config):
+
+```bash
+/full/path/to/SpotifyAdsBlocker &
+```
+
+---
+
+## 🙋‍♂️ Questions? Suggestions?
+
+Feel free to open an [issue](https://github.com/basbassi-houssam/no_spotify_ads_linux/issues) or submit a pull request.
 
 

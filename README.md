@@ -91,6 +91,9 @@ sudo pacman -S playerctl pulseaudio curl
    ```
 
 3. **Run manually or set up your own service**
+   ```bash
+   systemctl --user enable no-spotify-ads && systemctl --user start no-spotify-ads
+   ```
 
 ## 🎮 Usage
 

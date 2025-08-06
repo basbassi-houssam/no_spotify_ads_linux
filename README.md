@@ -1,7 +1,3 @@
-Sure, here's an improved version of your GitHub README with clearer wording, formatting, grammar fixes, and more professionalism—while still keeping it casual and accessible:
-
----
-
 # 🎵 Mute Spotify Ads Automatically (Shell Script)
 
 Tired of annoying Spotify ads breaking your vibe? This shell script automatically **mutes Spotify during ads** and restores the volume when your music comes back.

@@ -2,6 +2,7 @@
 <meta name="block spotify ads">
 <meta name="no spotify ads">
 <meta name="spotify muter">
+
 # 🎵 Spotify Ad Muter for Linux
 
 **Automatically mutes Spotify audio during advertisements while keeping them playing in the background.**

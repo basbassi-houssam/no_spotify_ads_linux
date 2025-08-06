@@ -151,8 +151,18 @@ Example for autostart (`.desktop` file or WM config):
 
 ---
 
+## ☕ Support This Project
+
+If this project helped you, consider supporting it to keep it alive and improved:
+
+* ❤️ [Donate on Ko-fi](https://ko-fi.com/basbassihoussam)
+* 💸 [Donate via PayPal](https://paypal.me/BasbassiHoussam)
+
+Your support means a lot 🙏
+
+---
+
 ## 🙋‍♂️ Questions? Suggestions?
 
 Feel free to open an [issue](https://github.com/basbassi-houssam/no_spotify_ads_linux/issues) or submit a pull request.
-
 

@@ -2,12 +2,12 @@
 
 # Spotify Ad Muter Script (Audio-Only Muting Version)
 # Automatically mutes Spotify's audio during advertisements while letting them play
-# Only starts if Spotify is already running
+# Start with system and keeps monitoring spotify
 
 # Configuration
 SPOTIFY_PROCESS="spotify"
 CHECK_INTERVAL=1  # Check every 1 second for better responsiveness
-LOG_FILE="/tmp/spotify-ad-muter.log"
+LOG_FILE="/tmp/no-spotify-ads.log"
 MUTE_STATE_FILE="/tmp/spotify_muted"
 ORIGINAL_VOLUME_FILE="/tmp/spotify_original_volume"
 

@@ -55,13 +55,38 @@ playerctl --list-all | grep spotify
 
 The script uses `playerctl` to detect when an ad is playing, then uses either `pactl` (PulseAudio) or `amixer` (ALSA) to mute the volume. When the ad is over, it unmutes automatically.
 
----
+## There are three ways to use this script and it depends on you 🫵:
 
-Let me know if you'd like me to:
+But before you must get the shell script:
 
-* Add usage instructions
-* Include an example script
-* Make an install script
-* Or format this as a Markdown file for you directly
+```bash
+git clone https://github.com/basbassi-houssam/no_spotify_ads_linux
+```
 
-Your call.
+### Option One:
+
+Run the script maunually every time you launch Spotify. (Simple and easy)
+
+### Option Two:
+
+#### Set the script to auto start:
+
+To set the shell script to auto start, it depends on you DE or WM, However I'm going to show you the way that works for most DE and WM:
+
+First, You must create a desktop file in (~/.config/autostart) that auto starts when system boots up:
+
+Let make a file name it no-spotify-ads.desktop in ~/.config/autostart/:
+
+```bash
+[Desktop Entry]
+Type=Shell
+Exec=/path/to/your/NoSpotifyAds
+Hidden=true
+NoDisplay=true
+X-GNOME-Autostart-enabled=true # Comment/remove this if you're not using gnome
+Name=NoSpotifyAds
+Comment=Autostart MyApp at login
+```
+
+
+

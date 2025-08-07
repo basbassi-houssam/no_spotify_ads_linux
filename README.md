@@ -10,7 +10,7 @@
 ## Demo
 
 <video width="600" controls>
-  <source src="https://github.com/basbassi-houssam/no_spotify_ads_linux/no-spotify-ads.mp4" type="video/mp4">
+  <source src="https://github.com/basbassi-houssam/no_spotify_ads_linux/blob/main/no-spotify-ads.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 

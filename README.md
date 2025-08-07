@@ -135,6 +135,47 @@ sudo apt install playerctl pulseaudio-utils curl  # Ubuntu/Debian
 # 5. Run the installer
 ./install.sh
 ```
+---
+## ⚙️ For Tiling Window Manager Users (BSPWM, Hyprland, etc.)
+
+If you're using a lightweight window manager like **BSPWM**, **Hyprland**, **i3**, or others, it's better to **avoid the `install.sh` and `uninstall.sh` scripts**. These scripts rely on `systemd` for auto-start, which may not behave predictably in minimal WM setups.
+
+### ✅ Recommended Way for WM Users
+
+Instead of installing with the scripts, you can run `no-spotify-ads` manually or add it to your autostart file:
+
+#### 🖥️ BSPWM Example
+
+Edit your `~/.config/bspwm/bspwmrc` and add this line:
+
+```bash
+~/.config/no-spotify-ads/NoSpotifyAds &
+```
+
+#### 🧪 Hyprland Example
+
+Edit your `~/.config/hypr/hyprland.conf` and add this under `exec-once`:
+
+```conf
+exec-once = ~/.config/no_spotify_ads/NoSpotifyAds
+```
+
+> Make sure the script is **downloaded and made executable**:
+
+```bash
+# Make a directory for the script
+mkdir -p ~/.config/no_spotify_ads
+
+# Get NoSpotifyAds through curl
+curl -fsSL https://raw.githubusercontent.com/basbassi-houssam/no_spotify_ads_linux/main/
+NoSpotifyAds -o ~/.config/no_spotify_ads/NoSpotifyAds
+
+# Give permissions to the script
+chmod +x ~/.config/no_spotify_ads/NoSpotifyAds
+```
+
+This method is simpler, avoids the systemd overhead, and gives you full control over startup behavior.
+
 
 ### What Gets Installed
 

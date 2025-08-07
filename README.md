@@ -9,7 +9,11 @@
 
 ## 🎥 Demo
 
-https://github.com/basbassi-houssam/no_spotify_ads_linux/blob/main/no-spotify-ads.mp4
+
+
+https://github.com/user-attachments/assets/0fb9188f-4922-432a-b3a1-0123f7e399bb
+
+
 
 ## ✨ Features
 

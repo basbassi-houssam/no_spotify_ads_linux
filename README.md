@@ -9,9 +9,7 @@
 
 ## 🎥 Demo
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/basbassi-houssam/no_spotify_ads_linux/blob/main/no-spotify-ads.mp4" type="video/mp4">
-</video>
+https://github.com/basbassi-houssam/no_spotify_ads_linux/blob/main/no-spotify-ads.mp4
 
 ## ✨ Features
 

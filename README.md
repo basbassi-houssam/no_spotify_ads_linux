@@ -244,6 +244,31 @@ chmod +x uninstall.sh
 ./uninstall.sh --version    # Show uninstaller version
 ./uninstall.sh --help       # Show uninstall help
 ```
+### For WM users:
+
+1. You have to remove the script in the config folder (or where you did place it):
+	
+	```bash
+	rm -rf ~/.config/no-spotify-ads
+	```
+2. Then remove the autostart line in your wm config:
+
+#### 🖥️ BSPWM Example
+
+Edit your `~/.config/bspwm/bspwmrc` and remove or comment this line:
+
+```bash
+~/.config/no-spotify-ads/NoSpotifyAds &
+```
+
+#### 🧪 Hyprland Example
+
+Edit your `~/.config/hypr/hyprland.conf` and remove or comment this line under `exec-once`:
+
+```conf
+exec-once = ~/.config/no_spotify_ads/NoSpotifyAds
+```
+
 
 ### What Gets Removed
 

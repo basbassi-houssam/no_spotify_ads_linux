@@ -7,12 +7,9 @@
 [![Platform](https://img.shields.io/badge/Platform-Linux-orange.svg)](https://www.kernel.org/)
 [![GitHub stars](https://img.shields.io/github/stars/basbassi-houssam/no_spotify_ads_linux?style=social)](https://github.com/basbassi-houssam/no_spotify_ads_linux/stargazers)
 
-## Demo
+## 🎥 Demo
 
-<video width="600" controls>
-  <source src="https://github.com/basbassi-houssam/no_spotify_ads_linux/blob/main/no-spotify-ads.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Watch Demo Video](https://github.com/basbassi-houssam/no_spotify_ads_linux/blob/main/no-spotify-ads.mp4)
 
 ## ✨ Features
 

@@ -168,7 +168,13 @@ If you used the installer, you should have the uninstall script:
 
 ### Download Uninstaller
 
-If you don't have the uninstall script:
+If you don't have the uninstall script, you can use one line command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/basbassi-houssam/no_spotify_ads_linux/main/uninstall.sh | bash
+```
+
+Or if you want to do it manually:
 
 ```bash
 # Download the uninstaller

@@ -522,16 +522,6 @@ This project is licensed under the **MIT License** - see the [LICENSE.md](LICENS
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/basbassi-houssam/no_spotify_ads_linux/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/basbassi-houssam/no_spotify_ads_linux/discussions)
-- 📧 **Email**: [Contact the author](mailto:basbassi.houssam@gmail.com)
-
-## 🎯 Roadmap
-
-- [ ] GUI configuration tool
-- [ ] Support for other music streaming services
-- [ ] Whitelist/blacklist for specific ad types
-- [ ] Integration with desktop notifications
-- [ ] Snap/Flatpak/AppImage packages
-- [ ] Automatic updates mechanism
 
 ## 🙏 Acknowledgments
 
